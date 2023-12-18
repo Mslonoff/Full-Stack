@@ -13,8 +13,10 @@ CREATE TABLE carData (
     FOREIGN KEY (owner_id) REFERENCES owners (owner_id) ON DELETE CASCADE
 )
 
+DROP TABLE IF EXISTS owners;
+
 CREATE TABLE owners (
-    id serial PRIMARY KEY,
+    owner_id serial PRIMARY KEY,
     first_name varchar(20),
     last_name varchar(20)
 )
