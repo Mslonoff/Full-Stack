@@ -1,6 +1,11 @@
-CREATE DATABASE cardb;
-\c cardb -- connects the cardb (like doing psql cardb)
 DROP TABLE IF EXISTS carData;
+DROP TABLE IF EXISTS owners;
+
+CREATE TABLE owners (
+    id serial PRIMARY KEY,
+    first_name varchar(20),
+    last_name varchar(20)
+);
 
 CREATE TABLE carData (
     car_id serial PRIMARY KEY,
@@ -10,17 +15,11 @@ CREATE TABLE carData (
     color varchar(20),
     mileage integer,
     owner_id integer NOT NULL,
-    FOREIGN KEY (owner_id) REFERENCES owners (owner_id) ON DELETE CASCADE
-)
+    FOREIGN KEY (owner_id) REFERENCES owners (id) ON DELETE CASCADE
+);
 
-DROP TABLE IF EXISTS owners;
 
-CREATE TABLE owners (
-    owner_id serial PRIMARY KEY,
-    first_name varchar(20),
-    last_name varchar(20)
-)
-
+-- separate code
 -- CREATE TABLE owners (
 --     id serial PRIMARY KEY,
 --     name text,
