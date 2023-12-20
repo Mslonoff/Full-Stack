@@ -19,7 +19,7 @@ app.use(express.static('public')); // middleware that will load all files in fol
 app.get('/api/cars', (req, res) => {
     pool
     .query('SELECT * FROM cardata')
-    .then((result) => res.send(result.rows))
+    .then((result) => res.status(201).send(result.rows))
     .catch((error) => {
         console.error(error);
         res.status(500).send('Sorry your database not found');
@@ -49,10 +49,10 @@ app.get('/api/owners:id', (req, res) => {
 });
 
 // post
-app.post('/api/owners', (req, res) => {
+app.post('/api/owners', (req, res) => { // this works
     let { first_name, last_name } = req.body;
     let queryParams = [first_name, last_name];
-    pool.query('INSERT INTO owners (first_name, last_name) VALUES($1, $2)', queryParams)
+    pool.query('INSERT INTO owners (first_name, last_name) VALUES ($1, $2)', queryParams)
     .then((result) => res.send('New Owner Added!'))
     .catch((error) => {
         console.error(error);
